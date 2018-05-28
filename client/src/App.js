@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Route, BrowserRouter } from 'react-router-dom';
+import Home from './components/layouts/Home';
+import About from './components/layouts/About';
+import Layout from './components/layouts/Layout';
+//import NewsItemDetail from './components/presentation/NewsItemDetail';
+import { Provider } from 'react-redux';
+import store from './store/store';
+import NewsArticle from './components/containers/NewsArticle';
 
+ 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+        <Provider store={store}>
+            <BrowserRouter>
+                <Layout>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/about" component={About} />
+                    <Route path='/news/:id' component={NewsArticle}/>    
+                </Layout>
+            </BrowserRouter>
+        </Provider>
+       );
   }
 }
 
